@@ -1,12 +1,14 @@
 
 const fs = require('fs');
+const path = require('path');
 
 exports.handler = function(req, rep) {
+  console.log('asdf');
   const data = req.payload;
-  if (data.file) {
-    //TODO: Make each user have a seperate folder.
-    const name = data.file.hapi.filename;
-    const path = __dirname + "/uploads/" + name;
+  const [fileName] = Object.keys(data);
+  if (fileName && data[fileName]) {
+    const savePath = path.resolve(__dirname + '/../../uploads/' + fileName);
+    console.log(savePath);
     const file = fs.createWriteStream(path);
 
     file.on('error', function (err) {
@@ -34,4 +36,4 @@ exports.handler = function(req, rep) {
 
 exports.method = 'POST';
 
-exports.pres = ['authenticateUser'];
+//exports.pres = ['authenticateUser'];

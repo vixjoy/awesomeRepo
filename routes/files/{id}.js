@@ -8,4 +8,4 @@ exports.handler = async function(req, rep) {
 
 exports.method = 'GET';
 
-exports.pres = ['authenticateUser'];
+//exports.pres = ['authenticateUser'];
