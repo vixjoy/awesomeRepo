@@ -11,7 +11,11 @@ const configTemplate = {
   secret: process.env.APP_SECRET || 'lol'
 };
 
-const currentConfig = require('./config') || {};
+let currentConfig = {};
+try {
+  currentConfig = require('./config');
+}
+catch(x) {}
 
 if(currentConfig)
   _.forEach(Object.keys(configTemplate), key => currentConfig[key] = currentConfig[key] || configTemplate[key]);
