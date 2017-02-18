@@ -1,8 +1,9 @@
 
 exports.handler = async function(req, rep) {
   const { helpers } = req.server.app;
+  const { id } = req.params;
   const { username } = req.state;
-  rep.file(await helpers.getFiles(username));
+  rep(await helpers.getFile(username, id));
 };
 
 exports.method = 'GET';
