@@ -12,7 +12,8 @@
     "watch": true,
     "ignore_watch" : [
         "node_modules",
-        "client"
+        "client",
+        "uploads"
     ],
     "watch_options": {
       "followSymlinks": false

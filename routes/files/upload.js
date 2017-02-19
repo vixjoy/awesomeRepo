@@ -1,34 +1,33 @@
 
 const fs = require('fs');
 const path = require('path');
+const boom = require('boom');
 
 exports.handler = function(req, rep) {
-  console.log('asdf');
+  const { token } = req.state;
+  const { helpers } = req.server.app;
   const data = req.payload;
+
   const [fileName] = Object.keys(data);
+
+  const { username } = helpers.decryptToken(token);
   if (fileName && data[fileName]) {
-    const savePath = path.resolve(__dirname + '/../../uploads/' + fileName);
-    console.log(savePath);
-    const file = fs.createWriteStream(path);
+    const savePath = path.resolve(__dirname + '/../../uploads/' + fileName + '.archive');
+    const file = fs.createWriteStream(savePath);
 
     file.on('error', function (err) {
       console.error(err);
+      rep(new Error(err));
     });
 
-    data.file.pipe(file);
-
-    data.file.on('end', function (err) {
-      if(err) {
-        console.error(err);
-        rep(new Error(err));
+    file.write(data[fileName], async () => {
+      try {
+        await helpers.saveFile(savePath, username);
       }
-      //TODO: Make database record!!!
-      const ret = {
-        filename: data.file.hapi.filename,
-        headers: data.file.hapi.headers
-      };
-      console.log({ret});
-      rep({success: true});
+      catch(x) {
+        rep(boom.wrap(x));
+      }
+      rep({ success: true });
     });
   }
 
@@ -36,4 +35,4 @@ exports.handler = function(req, rep) {
 
 exports.method = 'POST';
 
-//exports.pres = ['authenticateUser'];
+exports.pres = ['authenticateUser'];

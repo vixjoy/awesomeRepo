@@ -8,10 +8,11 @@ exports.login = async function({ username, password }) {
   if(!user) {
     return boom.badRequest('Username is incorrect or does not exist!');
   }
-  if(password === user.password)
+  if(password === user.password) {
     return {
       token: await helpers.createToken(user.username)
     };
+  }
   return boom.badRequest('Incorrect password provided');
 };
 

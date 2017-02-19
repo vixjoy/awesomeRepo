@@ -1,10 +1,11 @@
 
 exports.handler = async function(req, rep) {
   const { helpers } = req.server.app;
-  const { username } = req.state;
-  rep.file(await helpers.getFiles(username));
+  const { token } = req.state;
+  const { username } = helpers.decryptToken(token);
+  rep(await helpers.getFiles(username));
 };
 
 exports.method = 'GET';
 
-//exports.pres = ['authenticateUser'];
+exports.pres = ['authenticateUser'];

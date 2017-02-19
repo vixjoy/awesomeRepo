@@ -1,18 +1,30 @@
 
 const fs = require('fs');
+const _ = require('lodash');
 
 exports.getFiles = async function(username) {
   const { files } = this.db;
-  return await (files.get({ username }, '_id path').exec());
+  const dbFiles =  await (files.find({ username }, '_id path').exec());
+  return _.map(dbFiles, ({_id, path}) => {
+    return {
+      _id,
+      path: path.split('uploads')[1]
+    };
+  });
 };
 
-exports.getFile = async function(username, id) {
+exports.getFile = async function(username, _id) {
   const { files } = this.db;
-  const { path } = await (files.getOne({ id, username }, 'path').exec());
-  return fs.readFileSync(path, { encoding: 'UTF8' });
+  const { path } = await (files.findOne({ _id, username }, 'path').exec());
+  return path;//fs.readFileSync(path, { encoding: 'UTF8' });
 };
 
 exports.deleteFile = async function(_id) {
   const { files } = this.db;
   return await (files.find({ _id }).delete.exec());
+};
+
+exports.saveFile = async function(path, username) {
+  const { files } = this.db;
+  return await files.create({ path, username });
 };

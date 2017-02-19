@@ -8,6 +8,12 @@ exports.createToken = async function(username) {
 };
 
 exports.decryptToken = function(token) {
-  const tokenData = jwt.verify(token, secret);
-  return tokenData;
+  try {
+    const tokenData = jwt.verify(token, secret);
+    return tokenData;
+  }
+  catch(x) {
+    console.error(x.toString());
+    return false;
+  }
 };
