@@ -34,13 +34,15 @@ function handleFiles([file]) {
   const { token } = await $.get('/user/login?username=asdf&password=asdf');
   Cookies.set('token', token);
   const [file] = await $.get('/files');
+  if(!file)
+    return console.log('No Files!');
   const { _id } = file;
   const fileData = await $.ajax('/files/' + _id, {
     type: 'GET',
     mimeType: 'text/plain; charset=x-user-defined;'
   });
   if(!fileData)
-    return console.log('No files');
+    return console.log('No file data!');
   const decryptedData = await CryptoJS.AES.decrypt(fileData, 'entropy');
   const decryptedFile = decryptedData.toString(CryptoJS.enc.Utf8);
 
