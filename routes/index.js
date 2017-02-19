@@ -24,7 +24,7 @@ module.exports = async function(server) {
   const routes = _.map(await globby(__dirname + '/**/*.js'), p => path.resolve(p));
   const filteredRouteFiles = _.filter(routes, fileName => fileName !== __filename);
   return await bluebird.all(_.map(filteredRouteFiles, async (route) => {
-    const { handler, method, override, pres, config } = require(route);
+    const { handler, method, override, pres = [], config = {} } = require(route);
     if(override)
       return await override(server);
 

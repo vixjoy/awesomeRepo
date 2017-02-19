@@ -37,7 +37,9 @@ exports.handler = async function(req, rep) {
 exports.method = 'POST';
 
 exports.config = {
-  parse: false
+  payload: {
+    parse: false
+  }
 };
 
 exports.pres = ['authenticateUser'];
