@@ -1,5 +1,4 @@
 
-const fs = require('fs');
 const _ = require('lodash');
 
 exports.getFiles = async function(username) {
@@ -16,7 +15,7 @@ exports.getFiles = async function(username) {
 exports.getFile = async function(username, _id) {
   const { files } = this.db;
   const { path } = await (files.findOne({ _id, username }, 'path').exec());
-  return path;//fs.readFileSync(path, { encoding: 'UTF8' });
+  return path;
 };
 
 exports.deleteFile = async function(_id) {
