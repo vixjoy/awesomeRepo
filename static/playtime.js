@@ -55,5 +55,5 @@ function handleFiles([file]) {
   const zippedFileAsBase64 = await zippedFile.async('string');
 
   const unzippedFile = zippedFileAsBase64.replace('data:application/zip;base64,', '');
-  return window.location = unzippedFile;
+  //return window.location = unzippedFile;
 })();
