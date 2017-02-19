@@ -11,7 +11,13 @@
       "jsx": true
     }
   },
-  "extends": "eslint:recommended",
+  "globals": {
+    "$": true,
+    "CryptoJS": true,
+    "JSZip": true,
+    "Cookies": true
+  },
+  "extends": ["eslint:recommended", "plugin:inferno/recommended"],
   "parser": "babel-eslint",
   "rules": {
     "indent": [
@@ -24,6 +30,7 @@
     ],
     "strict": 0,
     "no-console": "off",
-    "require-yield": "off"
+    "require-yield": "off",
+    "inferno/prop-types": "off"
   }
 }

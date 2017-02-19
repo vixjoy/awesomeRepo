@@ -27,3 +27,8 @@ exports.saveFile = async function(path, username) {
   const { files } = this.db;
   return await files.create({ path, username });
 };
+
+exports.getFileFromPath = async function(path, username) {
+  const { files } = this.db;
+  return await files.findOne({ path, username }, '_id path');
+};

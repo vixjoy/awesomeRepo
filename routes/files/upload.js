@@ -28,7 +28,7 @@ exports.handler = async function(req, rep) {
       }
       catch(x) {
         console.error(x.toString());
-        rep({ success: true, message: 'File saved' });
+        rep(await helpers.getFileFromPath(savePath, username));
       }
     });
   }
