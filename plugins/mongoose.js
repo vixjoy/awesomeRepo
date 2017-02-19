@@ -7,13 +7,13 @@ module.exports = async function(server, config) {
   server.db = {};
 
   const fileSchema = new connectedMongoose.Schema({
-    path: String,
+    path: { type: String, index: true },
     username: String
   });
   server.db.files = connectedMongoose.model('files', fileSchema);
 
   const userSchema = new connectedMongoose.Schema({
-    username: String,
+    username: { type: String, index: true },
     password: String
   });
 
