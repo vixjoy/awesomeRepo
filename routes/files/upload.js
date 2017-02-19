@@ -38,7 +38,8 @@ exports.method = 'POST';
 
 exports.config = {
   payload: {
-    parse: false
+    parse: false,
+    maxBytes: Number.MAX_SAFE_INTEGER
   }
 };
 
