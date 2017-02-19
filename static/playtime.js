@@ -39,6 +39,8 @@ function handleFiles([file]) {
     type: 'GET',
     mimeType: 'text/plain; charset=x-user-defined;'
   });
+  if(!fileData)
+    return console.log('No files');
   const decryptedData = await CryptoJS.AES.decrypt(fileData, 'entropy');
   const decryptedFile = decryptedData.toString(CryptoJS.enc.Utf8);
 
