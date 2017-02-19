@@ -23,12 +23,13 @@ exports.handler = async function(req, rep) {
 
     file.write(data[fileName], async () => {
       try {
-        await helpers.saveFile(savePath, username);
+        const { _id, path } = await helpers.saveFile(savePath, username);
+        rep({ _id, path: path.split('uploads')[1] });
       }
       catch(x) {
-        rep(boom.wrap(x));
+        console.error(x.toString());
+        rep({ success: true, message: 'File saved' });
       }
-      rep({ success: true });
     });
   }
 
