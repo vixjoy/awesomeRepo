@@ -18,9 +18,9 @@ exports.getFile = async function(username, _id) {
   return path;
 };
 
-exports.deleteFile = async function(_id) {
+exports.deleteFile = async function(username, _id) {
   const { files } = this.db;
-  return await (files.find({ _id }).delete.exec());
+  return await (files.find({ _id, username }).delete.exec());
 };
 
 exports.saveFile = async function(path, username) {
