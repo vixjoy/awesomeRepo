@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name"        : "hapi-test",
+    "name"        : "Discovr-Server",
     "script"      : "index.js",
     "args"        : [],
     "node_args"   : "",

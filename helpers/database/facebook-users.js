@@ -3,6 +3,9 @@ exports.facebookLogin = async function(profile) {
   const { users } = this.db;
   const { helpers } = this.app;
 
+  if(!profile.id)
+    throw 'No id provided for Facebook profile!';
+
   const user = await (users.findOne({ username: profile.id }).exec());
 
   if(!user) {

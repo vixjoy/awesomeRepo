@@ -5,9 +5,10 @@ exports.handler = async function(req, rep) {
   const { helpers } = req.server.app;
   try {
     const token = await helpers.register(req.payload);
-    rep({token});
+    rep(token);
   }
   catch(x) {
+    console.error(x);
     rep(boom.wrap(x));
   }
 };
