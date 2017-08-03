@@ -3,7 +3,7 @@
     "name"        : "hapi-test",
     "script"      : "index.js",
     "args"        : [],
-    "node_args"   : "--harmony-async-await",
+    "node_args"   : "",
     "merge_logs"  : true,
     "cwd"         : "./",
     "env": {
