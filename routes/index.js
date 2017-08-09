@@ -3,18 +3,11 @@ const globby = require('globby');
 const bluebird = require('bluebird');
 const path = require('path');
 const _ = require('lodash');
-const boom = require('boom');
 
 const handlePres = async (req, rep, pres, handler) => {
   const { pres: preHelpers } = req.server.app;
   for(let i = 0; i < pres.length; i++) {
-    try {
-      if(!await preHelpers[pres[i]](req))
-        return rep(boom.badRequest('Unauthorized!'));
-    }
-    catch(x) {
-      return rep(boom.badRequest(x));
-    }
+    await preHelpers[pres[i]](req, rep);
   }
 
   return await handler(req, rep);

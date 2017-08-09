@@ -1,9 +1,17 @@
 
+const boom = require('boom');
+
 exports.handler = async function(req, rep) {
   const { helpers } = req.server.app;
-  const { token } = req.state;
-  const { username } = helpers.decryptToken(token);
-  rep(await helpers.loadProfile(username));
+  const { authenticateUser: { username } } = req.pre;
+  try {
+    const profile = await helpers.loadProfile(username);
+    rep(profile);
+  }
+  catch(x) {
+    console.error(x);
+    rep(boom.wrap(x));
+  }
 };
 
 exports.method = 'GET';

@@ -9,8 +9,6 @@ exports.facebookLogin = async function(profile) {
   if(!profile.id)
     throw 'No id provided for Facebook profile!';
 
-  console.log({profile});
-
   const user = await (users.findOne({ username: profile.id }).exec());
 
   if(!user) {
@@ -18,11 +16,16 @@ exports.facebookLogin = async function(profile) {
       throw `You can't create an account with stored credentials!`;
 
     try {
-      await users.create({
+      const user = {
         username: profile.id,
         type: 'facebook',
-        info: profile
-      });
+        firstName: profile.first_name,
+        lastName: profile.last_name,
+        email: profile.email,
+        gender: profile.gender,
+        facebookProfile: profile
+      };
+      await users.create(user);
       return await helpers.createToken(profile.id);
     }
     catch(x) {
