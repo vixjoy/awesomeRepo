@@ -1,8 +1,8 @@
 
-exports.login = async function({ username, password }) {
+exports.login = async function({ username, password, type }) {
   const { users } = this.db;
   const { helpers } = this.app;
-  const user = await (users.findOne({ username }).exec());
+  const user = await (users.findOne({ username, type }).exec());
   if(!user) {
     throw 'Username is incorrect or does not exist!';
   }
@@ -14,12 +14,21 @@ exports.login = async function({ username, password }) {
   throw 'Incorrect password provided';
 };
 
-exports.register = async function({ username, password }) {
+exports.register = async function(user) {
   //TODO: Encrypt user's password
   const { users } = this.db;
   const { helpers } = this.app;
-  await users.create({ username, password });
-  return {
-    token: await helpers.createToken(username)
-  };
+  user.type = 'local';
+  user.displayName = `${user.displayName}#${helpers.generateDisplayNameHash()}`;
+  try {
+    await users.create(user);
+    return {
+      token: await helpers.createToken(user.username)
+    };
+  }
+  catch(x) {
+    if(x.errmsg.includes(user.displayName))
+      return await helpers.register(user);
+    throw x;
+  }
 };

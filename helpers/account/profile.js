@@ -13,3 +13,7 @@ exports.loadProfile = async function(username) {
 exports.saveProfile = async function(profile) {
   //TODO
 };
+
+exports.generateDisplayNameHash = function() {
+  return Math.random().toString().slice(2, 6);
+};

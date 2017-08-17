@@ -19,10 +19,11 @@ exports.facebookLogin = async function(profile) {
       const user = {
         username: profile.id,
         type: 'facebook',
-        firstName: profile.first_name,
-        lastName: profile.last_name,
-        email: profile.email,
-        gender: profile.gender,
+        firstName: profile.first_name || '',
+        lastName: profile.last_name || '',
+        email: profile.email || '',
+        gender: profile.gender || '',
+        displayName: `${profile.displayName}#${helpers.generateDisplayNameHash()}`,
         facebookProfile: profile
       };
       await users.create(user);
