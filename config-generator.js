@@ -8,7 +8,8 @@ const _ = require('lodash');
 const configTemplate = {
   mongoUrl: process.env.MONGO_URL || 'localhost:27017',
   port: process.env.APP_PORT || 8080,
-  secret: process.env.APP_SECRET || 'lol'
+  secret: process.env.APP_SECRET || 'lol',
+  salt: process.env.APP_SALT || 'asdf'
 };
 
 let currentConfig = {};

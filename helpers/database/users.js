@@ -6,7 +6,7 @@ exports.login = async function({ username, password, type }) {
   if(!user) {
     throw 'Username is incorrect or does not exist!';
   }
-  if(password === user.password) {
+  if(helpers.verifyPassword(user.password, password)) {
     return {
       token: await helpers.createToken(user.username)
     };
@@ -20,6 +20,7 @@ exports.register = async function(user) {
   const { helpers } = this.app;
   user.type = 'local';
   user.displayName = `${user.displayName}#${helpers.generateDisplayNameHash()}`;
+  user.password = helpers.hashPassword(user.password);
   try {
     await users.create(user);
     return {

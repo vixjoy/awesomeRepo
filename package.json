@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.16.1",
     "bcryptjs": "^2.4.0",
     "bluebird": "^3.4.7",
     "boom": "^5.2.0",
