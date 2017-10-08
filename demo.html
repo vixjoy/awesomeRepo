@@ -18,9 +18,24 @@
     </div>
 
 
-<i class="fa fa-lock" aria-hidden="true"></i>
-<i class="fa fa-lock" aria-hidden="true"></i>
-<i class="fa fa-lock" aria-hidden="true"></i>
+<div class="frontDoor">
+<button type="button" class = "button"><i class="fa fa-lock lock" aria-hidden="true"></i>Front Door</button>
+</div>
+<div class="backDoor">
+<button type="button" class = "button"><i class="fa fa-lock lock" aria-hidden="true"></i>Back Door</button>
+</div>
+<div class="garageDoor">
+<button type="button" class ="button"><i class="fa fa-lock lock" aria-hidden="true"></i>Garage</button>
+</div>
 
 
+
+<script>
+$(document).ready(function(){
+  $('.button').click(function(e){
+    $(this).find('i').toggleClass('fa-lock').toggleClass('fa-unlock');
+  });
+
+});
+</script>
 </body>
