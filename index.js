@@ -8,9 +8,7 @@ server.connection({ port: require('./config').port });
   try {
     const config = require('./config');
     await require('./plugins')(server, config);
-    await require('./pres')(server, config);
     await require('./routes')(server, config);
-    await require('./helpers')(server, config);
     await new Promise((res, rej) => {
       server.start((err) => {
         if(err) return rej(err);

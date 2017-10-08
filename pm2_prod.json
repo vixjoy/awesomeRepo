@@ -7,15 +7,18 @@
     "merge_logs"  : true,
     "cwd"         : "./",
     "env": {
-        "NODE_ENV": "dev"
+        "NODE_ENV": "prod"
     },
     "watch": true,
     "ignore_watch" : [
         "node_modules",
         "client",
         "uploads",
+        "utility",
+        ".git",
         "static",
-        "pm2_dev.json"
+        "pm2_dev.json",
+        "pm2_prod.json"
     ],
     "watch_options": {
       "followSymlinks": false

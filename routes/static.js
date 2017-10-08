@@ -6,8 +6,6 @@ exports.override = function(server) {
     path: '/{file*}',
     handler: (req, rep) => {
       let file = req.params.file || 'index.html';
-      if(['list', 'login', 'register'].includes(req.params.file))
-        file = 'index.html';
       const filePath = path.resolve(`${__dirname}/../static/${file}`);
       return rep.file(filePath);
     }
