@@ -1,0 +1,24 @@
+{
+  "name": "lockdown",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vixjoy/awesomeRepo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vixjoy/awesomeRepo/issues"
+  },
+  "homepage": "https://github.com/vixjoy/awesomeRepo#readme",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}

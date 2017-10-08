@@ -28,35 +28,7 @@
 
 <script>
 $(document).ready(function(){
-  $.ajax({
-    method: "GET",
-    url: "lockStatus"
-  }).done(function( res ){
-    console.log(res);
-    for(var i = 0; i< res.length; i++){
-      if(res[i]){
-        toggleLock("lock" + i);
-      }
-    }
-  });
-  /*$.ajax({
-    method:"GET",
-    url: "lock0"
-  }).done(function(res){
-    console.log(res);
-  });
-  $.ajax({
-    method:"GET",
-    url: "lock1"
-  }).done(function(res){
-    console.log(res);
-  });
-  $.ajax({
-      method:"GET",
-      url: "lock2"
-    }).done(function(res){
-      console.log(res);
-    });*/
+  setLockStatus();
   $('.button').click(function(e){
     var _id = this.id;
     $.ajax({
@@ -64,19 +36,38 @@ $(document).ready(function(){
         url: _id,
       }).done(function(res){
         toggleLock(_id);
-        console.log(_id);
-        console.log(res);
       });
-    //console.log(this.id);
-    //toggleLock(this.id);
   });
 
 });
 
-function toggleLock(lockID){
-  //console.log(lockID);
-  $('#'+lockID).toggleClass('btn-success').toggleClass('btn-danger');
-  $('#'+lockID).find('i').toggleClass('fa-lock').toggleClass('fa-unlock');
+function toggleLock(lockID, action){
+  if(action === 'lock') {
+    $('#'+lockID).removeClass('btn-success').addClass('btn-danger');
+    $('#'+lockID).find('i').addClass('fa-lock').removeClass('fa-unlock');
+  } else if (action === 'unlock') {
+    $('#'+lockID).addClass('btn-success').removeClass('btn-danger');
+    $('#'+lockID).find('i').removeClass('fa-lock').addClass('fa-unlock');
+  } else {
+    $('#'+lockID).toggleClass('btn-success').toggleClass('btn-danger');
+    $('#'+lockID).find('i').toggleClass('fa-lock').toggleClass('fa-unlock');
+  }
+}
+
+function setLockStatus() {
+  $.ajax({
+    method: "GET",
+    url: "lockStatus"
+  }).done(function(res){
+    for(var i = 0; i < res.length; i++){
+      if(res[i]){
+        toggleLock("lock" + i, "lock");
+      } else {
+        toggleLock("lock" + i, "unlock");
+      }
+    }
+    setTimeout(setLockStatus, 2500);
+  });
 }
 </script>
 </body>
